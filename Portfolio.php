@@ -38,6 +38,15 @@
     body{
       background:rgb(209, 224, 224);
     }
+    #myTable_wrapper{
+      padding: 23px 23px 23px 23px;
+      margin: 23px 23px 0px 23px;
+      /* border: 2px solid red; */
+      overflow:auto;
+    }
+    #myTable{
+      width:98% !important;
+    }
   </style>
   
   <body>
@@ -72,7 +81,8 @@
       <th scope="col">Stock Name</th>
       <th scope="col">Quantity</th>
       <th scope="col">Price</th>
-      <th scope="col">Total</th>
+      <th scope="col">Total Buy Price</th>
+      <th scope="col">Buy Brokerage</th>
       <th scope="col">Buyer Info</th>
       <th scope="col">Active/Inactive</th>
     </tr>
@@ -92,6 +102,7 @@
       <td><?php echo $row['Quantity']; ?></td>
       <td><?php echo $row['Price']; ?></td>
       <td><?php echo $row['Price'] * $row['Quantity']; ?></td>
+      <td><?php echo $row['Buy Brokerage']; ?></td>
       <td><?php echo $row['Buyer Info']; ?></td>
       <!-- <td><?php echo $row['Status']; ?></td> -->
       <td> <a class="btn btn-primary btn-sm" href="Sold.php?sid=<?php echo $row['id'];?>">SELL</a>

@@ -42,6 +42,15 @@
     body{
       background:rgb(209, 224, 224);
     }
+    #MyTable_wrapper{
+      padding: 23px 23px 23px 23px;
+      margin: 23px 23px 0px 23px;
+      /* border: 2px solid red; */
+      overflow:auto;
+    }
+    #MyTable{
+      width:98% !important;
+    }
   </style>
   
   <body>
@@ -79,6 +88,7 @@
         <th scope="col">Sell Date</th>
         <th scope="col">Sell Price</th>
         <th scope="col">Total profit</th>
+        <th scope="col">Sell Brokerage</th>
         <th scope="col">Action</th>
       </tr>
     </thead>
@@ -102,6 +112,7 @@
       <td><?php echo $row['Sell Date']; ?></td>
       <td><?php echo $row['Sell Price']; ?></td>
       <td><?php echo $profit*$row['Sell Quantity']; ?></td>
+      <td><?php echo $row['Sell Brokerage']; ?></td>
       <td><a class="btn btn-primary btn-sm" href="CompletedOrders.php?did=<?php echo $row['id'];?>">DEL</a></td>
     </tr>
     <?php

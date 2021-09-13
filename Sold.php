@@ -13,6 +13,40 @@
         echo "Stock id not found";
     }
 ?>
+  <!-- Database updation php -->
+  <?php
+        if($_SERVER['REQUEST_METHOD'] == "POST")
+        // if(isset($_POST['SUBMIT']) && $_POST['SUBMIT']=="SUBMIT")
+        {
+             $insertSql="INSERT INTO `soldlist` (`id`, `Stock Name`, `Buy Date`, `Cost Price`, `Buyer Info`, `Buy Quantity`, `Sell Quantity`, `Sell Date`, `Sell Price`,`Sell Brokerage`, `Status`) VALUES (NULL, '".$_POST['StockName']."', '".$_POST['BuyDate']."', '".$_POST['CostPrice']."','".$_POST['BuyerInfo']."', '".$_POST['BuyQuantity']."', '".$_POST['SellQuantity']."', '".$_POST['SellDate']."', '".$_POST['SellPrice']."','".$_POST['SellBrokerage']."', '0')";
+             $result = $conn->query($insertSql);
+             
+             header("location:CompletedOrders.php");
+             
+             // Update in portfolio table
+                $BQ=$_POST["BuyQuantity"];
+                $SQ=$_POST["SellQuantity"];
+                if($SQ==$BQ)
+                {
+                    $sid=$_GET['sid'];
+                    $delSql="DELETE FROM `unitedstocks` where `unitedstocks`.id=$sid";
+                    $result = $conn->query($delSql);
+                }
+                else if($SQ<$BQ)
+                {
+                    $diffQ = $BQ-$SQ;
+                    $sid=$_GET['sid'];
+                    $upSql="UPDATE `unitedstocks` SET Quantity=$diffQ where `unitedstocks`.id=$sid";
+                    $result= $conn->query($upSql);
+                }
+
+        }
+        // else
+        // {
+        //     echo "Stock not Inserted in sold list";
+        // }
+       
+    ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -99,6 +133,10 @@
             <label for="SellPrice" class="form-label">Sell Price</label>
             <input type="text" class="form-control" id="SellPrice" name="SellPrice" required>
         </div>
+        <div class="col-md-6">
+            <label for="SellBrokerage" class="form-label">Sell Brokerage</label>
+            <input type="text" class="form-control" id="SellBrokerage" name="SellBrokerage" required>
+        </div>
         <div class="col-12">
             <button type="SUBMIT" class="btn btn-primary" id="SUBMIT" value="SUBMIT">Confirm Sell</button>
         </div>
@@ -108,26 +146,17 @@
         ?> -->
     </form>
 
-    <!-- Database updation php -->
-    <?php
-        if($_SERVER['REQUEST_METHOD'] == "POST")
-        // if(isset($_POST['SUBMIT']) && $_POST['SUBMIT']=="SUBMIT")
-        {
-             $insertSql="INSERT INTO `soldlist` (`id`, `Stock Name`, `Buy Date`, `Cost Price`, `Buyer Info`, `Buy Quantity`, `Sell Quantity`, `Sell Date`, `Sell Price`, `Status`) VALUES (NULL, '".$_POST['StockName']."', '".$_POST['BuyDate']."', '".$_POST['CostPrice']."','".$_POST['BuyerInfo']."', '".$_POST['BuyQuantity']."', '".$_POST['SellQuantity']."', '".$_POST['SellDate']."', '".$_POST['SellPrice']."', '0')";
-             $result = $conn->query($insertSql);
-             
-             $sid=$_GET['sid'];
-             $delSql="UPDATE `unitedstocks` SET Status='0' where `unitedstocks`.id=$sid";
-             $result = $conn->query($delSql);
-             
-             header("location:CompletedOrders.php");
-        }
-        // else
-        // {
-        //     echo "Stock not Inserted in sold list";
-        // }
-       
-    ?>
+    <!-- JS Validation -->
+        <script>
+        function validateForm() {
+            let x = document.forms["Sell-form"]["BuyQuantity"].value;
+            let y = document.forms["Sell-form"]["SellQuantity"].value;
+            if (x<y) {
+              alert("Sell Quantity can't be greater than Buy Quantity");
+              return false;
+            }
+          }
+        </script>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
