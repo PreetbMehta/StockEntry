@@ -2,7 +2,7 @@
   include('conn.php');
   if(isset($_POST['submit']) && $_POST['submit']=="SUBMIT")
   {
-      $query="INSERT INTO `unitedstocks` (`id`,`BuyDate`, `Stock Name`, `Quantity`, `Price`,`Buy Brokerage`, `Buyer Info`, `Status`) VALUES (NULL,'".$_POST['Date']."', '".$_POST['StockName']."', '".$_POST['Quantity']."', '".$_POST['Price']."','".$_POST['BuyBrokerage']."', '".$_POST['BuyerInfo']."', '1')";
+      $query="INSERT INTO `unitedstocks` (`id`,`BuyDate`, `Stock Name`, `Quantity`, `Price`,`Buy Brokerage`, `Buyer Info`, `Status`) VALUES (NULL,'".$_POST['Date']."', '".$_POST['StockName']."', '".$_POST['Quantity']."', '".$_POST['Price']."','0', '".$_POST['BuyerInfo']."', '1')";
       $result = $conn->query($query);
       header("location:Portfolio.php");
   }
@@ -63,7 +63,7 @@
     </nav>
 
     <!-- Data entry form -->
-    <form class="row g-3 needs-validation my-5 mx-5"  id="data-entry-form" method="post" novalidate>
+    <form class="row g-3 needs-validation my-5 mx-5"  id="data-entry-form" name="myForm" onsubmit="return validate()" method="post">
   <div class="col-md-2">
     <label for="validationCustom01" class="form-label">Date</label>
     <input type="date" class="form-control" id="validationCustom01" name="Date"  required>
@@ -71,7 +71,7 @@
 
   <div class="col-md-2">
     <label for="validationCustom02" class="form-label">Quantity</label>
-    <input type="text" class="form-control" id="validationCustom02" name="Quantity" required>
+    <input type="number" class="form-control" id="Quantity" name="Quantity" required><span id="numloc"></span></br>
   </div>
 
   <div class="col-md-4">
@@ -83,12 +83,12 @@
 
   <div class="col-md-2">
     <label for="validationCustom02" class="form-label"  >Price</label>
-    <input type="text" class="form-control" id="validationCustom02" name="Price" required>
+    <input type="number" step="0.01" class="form-control" id="validationCustom02" name="Price" required>
   </div>
 
   <div class="col-md-2">
-    <label for="validationCustom03" class="form-label"  >Buy Brokerage</label>
-    <input type="text" class="form-control" id="validationCustom03" name="BuyBrokerage" required>
+    <label for="BuyBrokerage" class="form-label"  >Buy Brokerage</label>
+    <input type="text" class="form-control" id="BuyBrokerage" name="BuyBrokerage" value="0" readonly>
   </div>
   
   <div class="col-md-3">
@@ -106,7 +106,20 @@
     <button class="btn btn-primary" type="submit" name="submit" value="SUBMIT">Submit form</button>
   </div>
   </form>
-    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Form Validation -->
+    <script>  
+      function validate(){  
+      var Qty=document.myform.Quantity.value;  
+      if (Qty<0){  
+        document.getElementById("numloc").innerHTML="Enter Positive value only";  
+        return false;  
+      }else{  
+        return true;  
+        }  
+      }  
+    </script>  
+
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

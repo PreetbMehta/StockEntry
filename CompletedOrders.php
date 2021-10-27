@@ -89,6 +89,7 @@
         <th scope="col">Sell Price</th>
         <th scope="col">Total profit</th>
         <th scope="col">Sell Brokerage</th>
+        <th scope="col">Buy Brokerage</th>
         <th scope="col">Action</th>
       </tr>
     </thead>
@@ -113,6 +114,7 @@
       <td><?php echo $row['Sell Price']; ?></td>
       <td><?php echo $profit*$row['Sell Quantity']; ?></td>
       <td><?php echo $row['Sell Brokerage']; ?></td>
+      <td><?php echo $row['Buy Brokerage']; ?></td>
       <td><a class="btn btn-primary btn-sm" href="CompletedOrders.php?did=<?php echo $row['id'];?>">DEL</a></td>
     </tr>
     <?php

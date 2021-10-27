@@ -18,7 +18,7 @@
         if($_SERVER['REQUEST_METHOD'] == "POST")
         // if(isset($_POST['SUBMIT']) && $_POST['SUBMIT']=="SUBMIT")
         {
-             $insertSql="INSERT INTO `soldlist` (`id`, `Stock Name`, `Buy Date`, `Cost Price`, `Buyer Info`, `Buy Quantity`, `Sell Quantity`, `Sell Date`, `Sell Price`,`Sell Brokerage`, `Status`) VALUES (NULL, '".$_POST['StockName']."', '".$_POST['BuyDate']."', '".$_POST['CostPrice']."','".$_POST['BuyerInfo']."', '".$_POST['BuyQuantity']."', '".$_POST['SellQuantity']."', '".$_POST['SellDate']."', '".$_POST['SellPrice']."','".$_POST['SellBrokerage']."', '0')";
+             $insertSql="INSERT INTO `soldlist` (`id`, `Stock Name`, `Buy Date`, `Cost Price`, `Buyer Info`, `Buy Quantity`, `Sell Quantity`, `Sell Date`, `Sell Price`,`Sell Brokerage`,`Buy Brokerage`, `Status`) VALUES (NULL, '".$_POST['StockName']."', '".$_POST['BuyDate']."', '".$_POST['CostPrice']."','".$_POST['BuyerInfo']."', '".$_POST['BuyQuantity']."', '".$_POST['SellQuantity']."', '".$_POST['SellDate']."', '".$_POST['SellPrice']."','".$_POST['SellBrokerage']."','".$_POST['BuyBrokerage']."', '0')";
              $result = $conn->query($insertSql);
              
              header("location:CompletedOrders.php");
@@ -103,27 +103,27 @@
     <form class="row g-3" id="Sell-form" method="POST">
         <div class="col-12">
           <label for="StockName" class="form-label">Stock Name</label>
-          <input type="text" class="form-control" id="StockName" name="StockName" value="<?php echo $row['Stock Name']; ?>" >
+          <input type="text" class="form-control" id="StockName" name="StockName" value="<?php echo $row['Stock Name']; ?>" readonly>
         </div>
         <div class="col-md-6">
             <label for="BuyDate" class="form-label">Buy Date</label>
-            <input type="date" class="form-control" id="BuyDate" name="BuyDate" value="<?php echo $row['BuyDate']; ?>">
+            <input type="date" class="form-control" id="BuyDate" name="BuyDate" value="<?php echo $row['BuyDate']; ?>" readonly>
         </div>
         <div class="col-md-6">
             <label for="CostPrice" class="form-label">Cost Price</label>
-            <input type="number" class="form-control" id="CostPrice" name="CostPrice" value="<?php echo $row['Price']; ?>">
+            <input type="number" step="0.01" class="form-control" id="CostPrice" name="CostPrice" value="<?php echo $row['Price']; ?>" readonly>
         </div>
         <div class="col-6">
             <label for="BuyerInfo" class="form-label">Buyer Info</label>
-            <input type="text" class="form-control" id="BuyerInfo" name="BuyerInfo" value="<?php echo $row['Buyer Info']; ?>" >
+            <input type="text" class="form-control" id="BuyerInfo" name="BuyerInfo" value="<?php echo $row['Buyer Info']; ?>" readonly>
         </div>
         <div class="col-md-3">
             <label for="Buy Quantity" class="form-label">Buy Quantity</label>
-            <input type="text" class="form-control" id="Buy Quantity" name="BuyQuantity" value="<?php echo $row['Quantity']; ?>">
+            <input type="number" class="form-control" id="Buy Quantity" name="BuyQuantity" value="<?php echo $row['Quantity']; ?>" readonly>
         </div>
         <div class="col-md-3">
             <label for="Sell Quantity" class="form-label">Sell Quantity</label>
-            <input type="text" class="form-control" id="SellQuantity" name="SellQuantity" required>
+            <input type="number" class="form-control" id="SellQuantity" name="SellQuantity" required>
         </div>
         <div class="col-md-6">
             <label for="SellDate" class="form-label">Sell Date</label>
@@ -131,11 +131,15 @@
         </div>
         <div class="col-md-6">
             <label for="SellPrice" class="form-label">Sell Price</label>
-            <input type="text" class="form-control" id="SellPrice" name="SellPrice" required>
+            <input type="number" step="0.01" class="form-control" id="SellPrice" name="SellPrice" required>
         </div>
         <div class="col-md-6">
             <label for="SellBrokerage" class="form-label">Sell Brokerage</label>
-            <input type="text" class="form-control" id="SellBrokerage" name="SellBrokerage" required>
+            <input type="text" class="form-control" id="SellBrokerage" name="SellBrokerage" value="0" readonly>
+        </div>
+        <div class="col-md-6">
+            <label for="SellBrokerage" class="form-label">Buy Brokerage</label>
+            <input type="text" class="form-control" id="BuyBrokerage" name="BuyBrokerage" value="<?php echo $row['Buy Brokerage']; ?>" readonly>
         </div>
         <div class="col-12">
             <button type="SUBMIT" class="btn btn-primary" id="SUBMIT" value="SUBMIT">Confirm Sell</button>
