@@ -28,11 +28,19 @@
       $(document).ready( function () {
       $('#myTable').DataTable();
       } );
+      //   Print button
+      // $(document).ready(function() {
+      //       $('#myTable').DataTable( {
+      //           dom: 'Bfrtip',
+      //           buttons: [
+      //               'print'                    ]
+      //           } );
+      //       } );
     </script>
     <!-- end of datatable code  -->
 
     <link rel="shortcut icon" href="images/united.jpg" type="images/jpg"><!--logo.-->
-    <title>Database</title>
+    <title>UnitedStocks</title>
   </head>
   <style>
     body{

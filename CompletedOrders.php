@@ -49,7 +49,7 @@
       overflow:auto;
     }
     #MyTable{
-      width:98% !important;
+      width:95% !important;
     }
   </style>
   

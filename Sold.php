@@ -100,7 +100,7 @@
     </nav>
 
     <!-- Data entry form -->
-    <form class="row g-3" id="Sell-form" method="POST">
+    <form class="row g-3" id="Sell-form" onsubmit="return validateForm()" method="POST">
         <div class="col-12">
           <label for="StockName" class="form-label">Stock Name</label>
           <input type="text" class="form-control" id="StockName" name="StockName" value="<?php echo $row['Stock Name']; ?>" readonly>
@@ -111,7 +111,7 @@
         </div>
         <div class="col-md-6">
             <label for="CostPrice" class="form-label">Cost Price</label>
-            <input type="number" step="0.01" class="form-control" id="CostPrice" name="CostPrice" value="<?php echo $row['Price']; ?>" readonly>
+            <input type="number" min="1" step="0.01" class="form-control" id="CostPrice" name="CostPrice" value="<?php echo $row['Price']; ?>" readonly>
         </div>
         <div class="col-6">
             <label for="BuyerInfo" class="form-label">Buyer Info</label>
@@ -119,11 +119,11 @@
         </div>
         <div class="col-md-3">
             <label for="Buy Quantity" class="form-label">Buy Quantity</label>
-            <input type="number" class="form-control" id="Buy Quantity" name="BuyQuantity" value="<?php echo $row['Quantity']; ?>" readonly>
+            <input type="number" min="1" class="form-control" id="Buy Quantity" name="BuyQuantity" value="<?php echo $row['Quantity']; ?>" readonly>
         </div>
         <div class="col-md-3">
             <label for="Sell Quantity" class="form-label">Sell Quantity</label>
-            <input type="number" class="form-control" id="SellQuantity" name="SellQuantity" required>
+            <input type="number" min="1" class="form-control" id="SellQuantity" name="SellQuantity" required>
         </div>
         <div class="col-md-6">
             <label for="SellDate" class="form-label">Sell Date</label>
@@ -131,7 +131,7 @@
         </div>
         <div class="col-md-6">
             <label for="SellPrice" class="form-label">Sell Price</label>
-            <input type="number" step="0.01" class="form-control" id="SellPrice" name="SellPrice" required>
+            <input type="number" min="1" step="0.01" class="form-control" id="SellPrice" name="SellPrice" required>
         </div>
         <div class="col-md-6">
             <label for="SellBrokerage" class="form-label">Sell Brokerage</label>
