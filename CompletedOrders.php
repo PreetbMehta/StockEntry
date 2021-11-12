@@ -71,59 +71,64 @@
                 <li class="nav-item">
                 <a class="nav-link active" href="CompletedOrders.php">Completed Orders</a>
                 </li>
+                <li class="nav-item">
+                <a class="nav-link" href="logout.php">Log Out</a>
+                </li>
             </ul>
             </div>
         </div>
     </nav>
     <table class="table mx-5 mt-6" id="MyTable">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Stock Name</th>
-        <th scope="col">Buy Date</th>
-        <th scope="col">Cost Price</th>
-        <th scope="col">Buyer Info</th>
-        <th scope="col">Buy Quantity</th>
-        <th scope="col">Sell Quantity</th>
-        <th scope="col">Sell Date</th>
-        <th scope="col">Sell Price</th>
-        <th scope="col">Total profit</th>
-        <th scope="col">Sell Brokerage</th>
-        <th scope="col">Buy Brokerage</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php
-      $sql="SELECT * FROM soldlist WHERE Status='0'";
-      $result=$conn->query($sql);
-      if($result->num_rows>0){
-          $id=1;
-          while($row = $result->fetch_assoc()){
-            $profit=$row['Sell Price'] - $row['Cost Price'];
-      ?>
-    <tr>
-      <th scope="row"><?php echo $id?></th>
-      <td><?php echo $row['Stock Name']; ?></td>
-      <td><?php echo $row['Buy Date']; ?></td>
-      <td><?php echo $row['Cost Price']; ?></td>
-      <td><?php echo $row['Buyer Info']; ?></td>
-      <td><?php echo $row['Buy Quantity']; ?></td>
-      <td><?php echo $row['Sell Quantity']; ?></td>
-      <td><?php echo $row['Sell Date']; ?></td>
-      <td><?php echo $row['Sell Price']; ?></td>
-      <td><?php echo $profit*$row['Sell Quantity']; ?></td>
-      <td><?php echo $row['Sell Brokerage']; ?></td>
-      <td><?php echo $row['Buy Brokerage']; ?></td>
-      <td><a class="btn btn-primary btn-sm" href="CompletedOrders.php?did=<?php echo $row['id'];?>">DEL</a></td>
-    </tr>
-    <?php
-        $id++; 
-        }
-        }
-    ?>
-  </tbody>
-</table>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Stock Name</th>
+          <th scope="col">Buy Date</th>
+          <th scope="col">Cost Price</th>
+          <th scope="col">Buyer Info</th>
+          <th scope="col">Buy Quantity</th>
+          <th scope="col">Sell Quantity</th>
+          <th scope="col">Sell Date</th>
+          <th scope="col">Sell Price</th>
+          <th scope="col">Total profit</th>
+          <th scope="col">Updated By</th>
+          <!-- <th scope="col">Sell Brokerage</th> -->
+          <!-- <th scope="col">Buy Brokerage</th> -->
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+          <?php
+          $sql="SELECT * FROM soldlist WHERE Status='0'";
+          $result=$conn->query($sql);
+          if($result->num_rows>0){
+              $id=1;
+              while($row = $result->fetch_assoc()){
+                $profit=$row['Sell Price'] - $row['Cost Price'];
+          ?>
+          <tr>
+            <th scope="row"><?php echo $id?></th>
+            <td><?php echo $row['Stock Name']; ?></td>
+            <td><?php echo $row['Buy Date']; ?></td>
+            <td><?php echo $row['Cost Price']; ?></td>
+            <td><?php echo $row['Buyer Info']; ?></td>
+            <td><?php echo $row['Buy Quantity']; ?></td>
+            <td><?php echo $row['Sell Quantity']; ?></td>
+            <td><?php echo $row['Sell Date']; ?></td>
+            <td><?php echo $row['Sell Price']; ?></td>
+            <td><?php echo $profit*$row['Sell Quantity']; ?></td>
+            <!-- <td><?php echo $row['Sell Brokerage']; ?></td> -->
+            <!-- <td><?php echo $row['Buy Brokerage']; ?></td> -->
+            <td><?php echo $row['UpdatedBy'];?></td>
+            <td><a class="btn btn-primary btn-sm" href="CompletedOrders.php?did=<?php echo $row['id'];?>">DEL</a></td>
+          </tr>
+          <?php
+              $id++; 
+              }
+              }
+          ?>
+      </tbody>
+    </table>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

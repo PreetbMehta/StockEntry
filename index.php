@@ -2,7 +2,7 @@
   include('conn.php');
   if(isset($_POST['submit']) && $_POST['submit']=="SUBMIT")
   {
-      $query="INSERT INTO `unitedstocks` (`id`,`BuyDate`, `Stock Name`, `Quantity`, `Price`,`Buy Brokerage`, `Buyer Info`, `Status`) VALUES (NULL,'".$_POST['Date']."', '".$_POST['StockName']."', '".$_POST['Quantity']."', '".$_POST['Price']."','0', '".$_POST['BuyerInfo']."', '1')";
+      $query="INSERT INTO `unitedstocks` (`id`,`BuyDate`, `Stock Name`, `Quantity`, `Price`,`Buyer Info`,`UpdatedBy`, `Status`) VALUES (NULL,'".$_POST['Date']."', '".$_POST['StockName']."', '".$_POST['Quantity']."', '".$_POST['Price']."', '".$_POST['BuyerInfo']."','".$_SESSION['Username']."', '1')";
       $result = $conn->query($query);
       header("location:Portfolio.php");
   }
@@ -57,6 +57,9 @@
                 <li class="nav-item">
                 <a class="nav-link" href="CompletedOrders.php">Completed Orders</a>
                 </li>
+                <li class="nav-item">
+                <a class="nav-link" href="logout.php">Log Out</a>
+                </li>
             </ul>
             </div>
         </div>
@@ -86,10 +89,10 @@
     <input type="number" min="1" step="0.01" class="form-control" id="validationCustom02" name="Price" required>
   </div>
 
-  <div class="col-md-2">
+  <!-- <div class="col-md-2">
     <label for="BuyBrokerage" class="form-label"  >Buy Brokerage</label>
     <input type="text" class="form-control" id="BuyBrokerage" name="BuyBrokerage" value="0" readonly>
-  </div>
+  </div> -->
   
   <div class="col-md-3">
     <label for="BuyerInfo" class="form-label">State</label>

@@ -75,6 +75,9 @@
                 <li class="nav-item">
                 <a class="nav-link" href="CompletedOrders.php">Completed Orders</a>
                 </li>
+                <li class="nav-item">
+                <a class="nav-link" href="logout.php">Log Out</a>
+                </li>
             </ul>
             </div>
         </div>
@@ -90,9 +93,10 @@
       <th scope="col">Quantity</th>
       <th scope="col">Price</th>
       <th scope="col">Total Buy Price</th>
-      <th scope="col">Buy Brokerage</th>
+      <!-- <th scope="col">Buy Brokerage</th> -->
       <th scope="col">Buyer Info</th>
-      <th scope="col">Active/Inactive</th>
+      <th scope="col">Updated By</th>
+      <th scope="col">Operation</th>
     </tr>
   </thead>
   <tbody>
@@ -110,9 +114,10 @@
       <td><?php echo $row['Quantity']; ?></td>
       <td><?php echo $row['Price']; ?></td>
       <td><?php echo $row['Price'] * $row['Quantity']; ?></td>
-      <td><?php echo $row['Buy Brokerage']; ?></td>
+      <!-- <td><?php echo $row['Buy Brokerage']; ?></td> -->
       <td><?php echo $row['Buyer Info']; ?></td>
       <!-- <td><?php echo $row['Status']; ?></td> -->
+      <td><?php echo $row['UpdatedBy']; ?></td>
       <td> <a class="btn btn-primary btn-sm" href="Sold.php?sid=<?php echo $row['id'];?>">SELL</a>
       <a class="btn btn-primary btn-sm" href="Portfolio.php?did=<?php echo $row['id'];?>">DEL</a></td>
     </tr>

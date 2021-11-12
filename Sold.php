@@ -18,7 +18,7 @@
         if($_SERVER['REQUEST_METHOD'] == "POST")
         // if(isset($_POST['SUBMIT']) && $_POST['SUBMIT']=="SUBMIT")
         {
-             $insertSql="INSERT INTO `soldlist` (`id`, `Stock Name`, `Buy Date`, `Cost Price`, `Buyer Info`, `Buy Quantity`, `Sell Quantity`, `Sell Date`, `Sell Price`,`Sell Brokerage`,`Buy Brokerage`, `Status`) VALUES (NULL, '".$_POST['StockName']."', '".$_POST['BuyDate']."', '".$_POST['CostPrice']."','".$_POST['BuyerInfo']."', '".$_POST['BuyQuantity']."', '".$_POST['SellQuantity']."', '".$_POST['SellDate']."', '".$_POST['SellPrice']."','".$_POST['SellBrokerage']."','".$_POST['BuyBrokerage']."', '0')";
+             $insertSql="INSERT INTO `soldlist` (`id`, `Stock Name`, `Buy Date`, `Cost Price`, `Buyer Info`, `Buy Quantity`, `Sell Quantity`, `Sell Date`, `Sell Price`,`UpdatedBy`, `Status`) VALUES (NULL, '".$_POST['StockName']."', '".$_POST['BuyDate']."', '".$_POST['CostPrice']."','".$_POST['BuyerInfo']."', '".$_POST['BuyQuantity']."', '".$_POST['SellQuantity']."', '".$_POST['SellDate']."', '".$_POST['SellPrice']."','".$_SESSION['Username']."', '0')";
              $result = $conn->query($insertSql);
              
              header("location:CompletedOrders.php");
@@ -94,6 +94,9 @@
                 <li class="nav-item">
                 <a class="nav-link" href="CompletedOrders.php">Completed Orders</a>
                 </li>
+                <li class="nav-item">
+                <a class="nav-link" href="logout.php">Log Out</a>
+                </li>
             </ul>
             </div>
         </div>
@@ -131,16 +134,16 @@
         </div>
         <div class="col-md-6">
             <label for="SellPrice" class="form-label">Sell Price</label>
-            <input type="number" min="1" step="0.01" class="form-control" id="SellPrice" name="SellPrice" required>
+            <input type="number" min="0.01" step="0.01" class="form-control" id="SellPrice" name="SellPrice" required>
         </div>
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
             <label for="SellBrokerage" class="form-label">Sell Brokerage</label>
             <input type="text" class="form-control" id="SellBrokerage" name="SellBrokerage" value="0" readonly>
-        </div>
-        <div class="col-md-6">
+        </div> -->
+        <!-- <div class="col-md-6">
             <label for="SellBrokerage" class="form-label">Buy Brokerage</label>
             <input type="text" class="form-control" id="BuyBrokerage" name="BuyBrokerage" value="<?php echo $row['Buy Brokerage']; ?>" readonly>
-        </div>
+        </div> -->
         <div class="col-12">
             <button type="SUBMIT" class="btn btn-primary" id="SUBMIT" value="SUBMIT">Confirm Sell</button>
         </div>
@@ -155,7 +158,8 @@
         function validateForm() {
             let x = document.forms["Sell-form"]["BuyQuantity"].value;
             let y = document.forms["Sell-form"]["SellQuantity"].value;
-            if (x<y) {
+            promt(x && y);
+            if (y>x) {
               alert("Sell Quantity can't be greater than Buy Quantity");
               return false;
             }

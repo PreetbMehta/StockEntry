@@ -1,0 +1,105 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    /* background-color: rgb(25, 196, 116,0.4); */
+    background-color: rgb(209,224,224)
+}
+.navbar img{
+    width: 60px;
+}
+#login-sec{
+    width: 33%;
+    padding: 33px 33px;
+    margin-top: 27vh;
+    margin-left: 33vw;
+    text-align: center;
+    border: 2px solid;
+    border-radius: 15px;
+    box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);/* offset-x | offset-y | blur-radius | spread-radius | color*/
+}
+#login-sec h1{
+    text-align: center;
+    color: black;
+    font-weight: 700;
+}
+#Login-form{
+    justify-content: center;
+}
+#Login-form input[type="email"],#Login-form input[type="password"],#Login-form input[type="text"]{
+    display: block;
+    margin: 10px auto;
+    padding: 5px 5px;
+    border-radius: 5px;
+    text-align: center;
+}
+#Login-form button{
+    display: block;
+    margin: 15px auto;
+    background-color: #0d6efd;
+    color:  #fff;
+    width: 150px;
+    /* border: 3px solid black; */
+    border-radius: 5px;
+    padding: 5px 5px;
+    cursor: pointer;
+}
+
+/* responsive----------------------------------------------------------------------------------------- */
+@media screen and (max-width:400px){
+    #nav{
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+    #nav div a{
+        margin: auto;
+    }
+    #login-sec{
+        width: 66%;
+        padding: 33px 33px;
+        margin-top: 18vh;
+        margin-left: 18vw;
+        text-align: center;
+        border: 2px solid;
+        border-radius: 15px;
+        box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);/* offset-x | offset-y | blur-radius | spread-radius | color*/
+    }
+    #Login-form input[type="email"],#Login-form input[type="password"],#Login-form input[type="text"]{
+        width: 70%;
+    }
+    #Login-form button{
+        width: 50%;
+    }
+}
+
+@media (min-width:400px) and (max-width:800px){
+    #nav{
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+    #nav div a{
+        margin: auto;
+    }
+    #login-sec{
+        width: 66%;
+        padding: 33px 33px;
+        margin-top: 18vh;
+        margin-left: 18vw;
+        text-align: center;
+        border: 2px solid;
+        border-radius: 15px;
+        box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);/* offset-x | offset-y | blur-radius | spread-radius | color*/
+    }
+
+}
+
+@media (min-width:800px) and (max-width:1000px){
+    #nav{
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+    #nav div a{
+        margin: auto;
+    }
+}
