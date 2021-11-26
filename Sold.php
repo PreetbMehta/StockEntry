@@ -121,11 +121,11 @@
             <input type="text" class="form-control" id="BuyerInfo" name="BuyerInfo" value="<?php echo $row['Buyer Info']; ?>" readonly>
         </div>
         <div class="col-md-3">
-            <label for="Buy Quantity" class="form-label">Buy Quantity</label>
-            <input type="number" min="1" class="form-control" id="Buy Quantity" name="BuyQuantity" value="<?php echo $row['Quantity']; ?>" readonly>
+            <label for="BuyQuantity" class="form-label">Buy Quantity</label>
+            <input type="number" min="1" class="form-control" id="BuyQuantity" name="BuyQuantity" value="<?php echo $row['Quantity']; ?>" readonly>
         </div>
         <div class="col-md-3">
-            <label for="Sell Quantity" class="form-label">Sell Quantity</label>
+            <label for="SellQuantity" class="form-label">Sell Quantity</label>
             <input type="number" min="1" class="form-control" id="SellQuantity" name="SellQuantity" required>
         </div>
         <div class="col-md-6">
@@ -156,9 +156,12 @@
     <!-- JS Validation -->
         <script>
         function validateForm() {
-            let x = document.forms["Sell-form"]["BuyQuantity"].value;
-            let y = document.forms["Sell-form"]["SellQuantity"].value;
-            promt(x && y);
+            let x = parseInt(document.forms["Sell-form"]["BuyQuantity"].value);
+            let y = parseInt(document.forms["Sell-form"]["SellQuantity"].value);
+            console.log(x);
+            console.log(y);
+            if(y>x){console.log("true");}
+            else{console.log("false");}
             if (y>x) {
               alert("Sell Quantity can't be greater than Buy Quantity");
               return false;

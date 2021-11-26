@@ -1,10 +1,10 @@
 <?php
 session_start();
-$host="localhost";
+$server="localhost";
 $user="root";
 $pwd="";
 $dbname="unitedstocks";
-$conn= new mysqli($host,$user,$pwd,$dbname);
+$conn= new mysqli($server,$user,$pwd,$dbname);
 
 //check conn
 if($conn->connect_error){

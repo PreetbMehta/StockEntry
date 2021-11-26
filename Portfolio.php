@@ -8,6 +8,17 @@
    $suc_msg="record deleted successfully";
   }
 ?>
+<?php
+          // edit modal data to daatabase
+          if(isset($_POST['Edit']))
+          {
+            echo "123";
+            $eid1= $_POST['eid'];
+            $queryUpdate = "UPDATE `unitedstocks` SET BuyDate='".$_POST['BuyDate']."', `Stock Name`='".$_POST["StockName"]."',Quantity='".$_POST['BuyQuantity']."',Price='".$_POST['CostPrice']."',`Buyer Info`='".$_POST['BuyerInfo']."', UpdatedBy='".$_SESSION["Username"]."' where `unitedstocks`.id=$eid1";
+            $resultUpdate = $conn->query($queryUpdate);
+            header('location:Portfolio.php');
+          }
+          ?>  
 <!doctype html>
 <html lang="en">
   <head>
@@ -37,8 +48,8 @@
       //           } );
       //       } );
     </script>
-    <!-- end of datatable code  -->
-
+    <!-- end of datatable code  -->        
+    <link rel="stylesheet" href="editPortfolio.css">
     <link rel="shortcut icon" href="images/united.jpg" type="images/jpg"><!--logo.-->
     <title>UnitedStocks</title>
   </head>
@@ -85,50 +96,110 @@
 
     <br>
     <table class="table mx-5 mt-6" id="myTable">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Date</th>
-      <th scope="col">Stock Name</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Price</th>
-      <th scope="col">Total Buy Price</th>
-      <!-- <th scope="col">Buy Brokerage</th> -->
-      <th scope="col">Buyer Info</th>
-      <th scope="col">Updated By</th>
-      <th scope="col">Operation</th>
-    </tr>
-  </thead>
-  <tbody>
-      <?php
-      $sql="SELECT * FROM unitedstocks WHERE Status='1'";
-      $result=$conn->query($sql);
-      if($result->num_rows>0){
-          $id=1;
-          while($row = $result->fetch_assoc()){
-      ?>
-    <tr>
-      <th scope="row"><?php echo $id?></th>
-      <td><?php echo $row['BuyDate']; ?></td>
-      <td><?php echo $row['Stock Name']; ?></td>
-      <td><?php echo $row['Quantity']; ?></td>
-      <td><?php echo $row['Price']; ?></td>
-      <td><?php echo $row['Price'] * $row['Quantity']; ?></td>
-      <!-- <td><?php echo $row['Buy Brokerage']; ?></td> -->
-      <td><?php echo $row['Buyer Info']; ?></td>
-      <!-- <td><?php echo $row['Status']; ?></td> -->
-      <td><?php echo $row['UpdatedBy']; ?></td>
-      <td> <a class="btn btn-primary btn-sm" href="Sold.php?sid=<?php echo $row['id'];?>">SELL</a>
-      <a class="btn btn-primary btn-sm" href="Portfolio.php?did=<?php echo $row['id'];?>">DEL</a></td>
-    </tr>
-    <?php
-        $id++; 
-        }
-        }
-    ?>
-  </tbody>
-</table>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Date</th>
+          <th scope="col">Stock Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Total Buy Price</th>
+          <!-- <th scope="col">Buy Brokerage</th> -->
+          <th scope="col">Buyer Info</th>
+          <th scope="col">Updated By</th>
+          <th scope="col">Operation</th>
+        </tr>
+      </thead>
+      <tbody>
+          <?php
+          $sql="SELECT * FROM unitedstocks WHERE Status='1'";
+          $result=$conn->query($sql);
+          if($result->num_rows>0){
+              $id=1;
+              while($row = $result->fetch_assoc()){
+          ?>
+        <tr>
+          <th scope="row"><?php echo $id?></th>
+          <td><?php echo $row['BuyDate']; ?></td>
+          <td><?php echo $row['Stock Name']; ?></td>
+          <td><?php echo $row['Quantity']; ?></td>
+          <td><?php echo $row['Price']; ?></td>
+          <td><?php echo $row['Price'] * $row['Quantity']; ?></td>
+          <!-- <td><?php echo $row['Buy Brokerage']; ?></td> -->
+          <td><?php echo $row['Buyer Info']; ?></td>
+          <!-- <td><?php echo $row['Status']; ?></td> -->
+          <td><?php echo $row['UpdatedBy']; ?></td>
+          <td> <a class="btn btn-primary btn-sm" href="Sold.php?sid=<?php echo $row['id'];?>">SELL</a>
+          <a class="btn btn-primary btn-sm" href="Portfolio.php?did=<?php echo $row['id'];?>">DEL</a>
+          <a class="btn btn-primary btn-sm" id="editBtn" onclick="editData(eid=<?php echo $row['id'];?>)">Edit</a></td>
+        </tr>
+        <?php
+            $id++; 
+            }
+            }
+        ?>
+      </tbody>
+    </table>
+    <!-- JsModal--------------------------------------------------------------------------------- -->
+    
+        <div class="jsModal" id="editModal">
+        <div class="dialogModal">
+        <span class="close">&times;</span>
+        <h2>Edit Entry</h2>
+          <form class="row g-3" id="Edit-modal-form" method="POST">
+            
+          </form>
+        </div><!--dialogModal-->
+      </div><!--editModal-->  
 
+      <!-- Modal Script----------------------------------------------------------------------------- -->
+      <script>
+        // ajax----------------------------------
+        function editData(idParam) {
+          document.getElementById("editModal").style.display="block";
+          $.ajax({
+            url: 'viewAjax.php',
+            type: 'POST',
+            
+            data: 'e='+idParam,
+            success: function(data) {
+                console.log(data);
+                $('#Edit-modal-form').html(data);
+            }
+        });
+        }
+        // var i;
+        // for(i=0, i<=data.length,i++)
+        // {
+        //   console.log(data[i]);
+        // }
+
+            //get modal 
+            var modal = document.getElementById("editModal");
+
+            //get btn
+            var Btn1 = document.getElementById("editBtn");
+
+            //get span element of close modal
+            var spanClose = document.getElementsByClassName("close")[0];
+
+            //when user clicks edit
+            // Btn1.onclick = function() {
+            //   modal.style.display="block";
+            // }
+
+            // When the user clicks on <span> (x), close the modal
+            spanClose.onclick = function() {
+              modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+              if (event.target == modal) {
+                modal.style.display = "none";
+              }
+            }
+      </script>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
